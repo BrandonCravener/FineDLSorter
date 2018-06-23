@@ -1,15 +1,15 @@
 import * as path from 'path';
 import * as url from 'url';
-import { app, BrowserWindow, screen, Tray, Menu } from 'electron';
+import { app, BrowserWindow, screen, Tray, Menu, ipcMain } from 'electron';
 
-const args = process.argv.slice(1);
 
-let serve: boolean = args.some(val => val === '--serve');
-let showScriptWindow: boolean = args.some(val => val === '--scriptWin');
 let tray: Electron.Tray;
 let guiWin: Electron.BrowserWindow;
+const args = process.argv.slice(1);
 let scriptWin: Electron.BrowserWindow;
+const serve: boolean = args.some(val => val === '--serve');
 const iconPath: string = path.join(__dirname, 'src/favicon.png');
+const showScriptWindow: boolean = args.some(val => val === '--scriptWin');
 
 function createWindow() {
   if (!guiWin) {
@@ -38,6 +38,7 @@ function createWindow() {
         })
       );
     }
+
     // Emitted when the window is closed.
     guiWin.on('closed', () => {
       // Dereference the window object, usually you would store window

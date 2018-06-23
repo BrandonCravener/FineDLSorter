@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<div [class]="theme">
+    <mat-toolbar color="primary" class="drag">
+        <mat-toolbar-row>
+            <div></div>
+            <div>FineDLSorter</div>
+            <div>
+                <button mat-icon-button class="no-drag" (click)="close()">
+                    <mat-icon aria-label="Close button">close</mat-icon>
+                </button>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="router-wrapper">
+        <router-outlet></router-outlet>
+    </div>
+</div>

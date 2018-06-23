@@ -3,6 +3,10 @@
 
 @import './themes/amber-theme.scss';
 
+body {
+  margin: 0;
+}
+
 .amber-theme {
   @include angular-material-theme($amber-theme-theme);
 }

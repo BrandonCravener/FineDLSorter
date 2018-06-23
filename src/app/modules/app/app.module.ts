@@ -13,6 +13,7 @@ import { WebviewDirective } from '../../directives/webview.directive';
 import '../../../polyfills';
 import 'reflect-metadata';
 import 'zone.js/dist/zone-mix';
+import { MaterialModule } from '../material/material.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -33,7 +34,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    MaterialModule
   ],
   providers: [ElectronService],
   bootstrap: [AppComponent]

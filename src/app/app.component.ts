@@ -9,6 +9,9 @@ import { AppConfig } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  public theme = 'amber-theme';
+
   constructor(public electronService: ElectronService,
     private translate: TranslateService) {
 
@@ -22,5 +25,9 @@ export class AppComponent {
     } else {
       console.log('Mode web');
     }
+  }
+
+  close() {
+    this.electronService.remote.getCurrentWindow().close();
   }
 }
