@@ -5,14 +5,18 @@
         </mat-card-title>
         <mat-card-content></mat-card-content>
         <mat-card-actions>
-            <button mat-button>Manage</button>
+            <button mat-button routerLink="groups">Manage</button>
         </mat-card-actions>
     </mat-card>
     <mat-card>
         <mat-card-title>
             Options
         </mat-card-title>
-        <mat-card-content></mat-card-content>
+        <mat-card-content>
+            <mat-slide-toggle color="primary" [checked]="sorting" (change)="enableChnage(event)">
+                Sorting Enabled
+            </mat-slide-toggle>
+        </mat-card-content>
         <mat-card-actions></mat-card-actions>
     </mat-card>
     <mat-card>
@@ -21,7 +25,7 @@
         </mat-card-title>
         <mat-card-content></mat-card-content>
         <mat-card-actions>
-            <button mat-button>Manage</button>
+            <button mat-button routerLink="overlooked">Manage</button>
         </mat-card-actions>
     </mat-card>
 </div>

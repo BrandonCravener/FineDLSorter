@@ -1,7 +1,11 @@
 <div [class]="theme">
     <mat-toolbar color="primary" class="drag">
         <mat-toolbar-row>
-            <div></div>
+            <div>
+                <button mat-icon-button class="no-drag" routerLink="" [class.hidden]="home">
+                    <mat-icon aria-label="Back button">arrow_back</mat-icon>
+                </button>
+            </div>
             <div>FineDLSorter</div>
             <div>
                 <button mat-icon-button class="no-drag" (click)="close()">
@@ -13,4 +17,7 @@
     <div class="router-wrapper">
         <router-outlet></router-outlet>
     </div>
+    <button class="shutdown-button" matTooltip="Shutdown FineDLSorter" matTooltipPosition="left" mat-icon-button (click)="exit()">
+        <mat-icon aria-label="Shutdown">power</mat-icon>
+    </button>
 </div>

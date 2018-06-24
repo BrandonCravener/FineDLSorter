@@ -1,3 +1,15 @@
+$mat-distance: 14px;
+
+mat-toolbar {
+  top: 0;
+  position: fixed;
+  z-index: 9999;
+}
+
+.router-wrapper {
+  margin-top: 55px;
+}
+
 mat-toolbar > mat-toolbar-row:first-child {
   justify-content: center;
   div {
@@ -21,4 +33,14 @@ mat-toolbar > mat-toolbar-row:first-child {
 
 .router-wrapper {
   padding: 10px;
+}
+
+.shutdown-button {
+  position: fixed;
+  right: $mat-distance;
+  bottom: $mat-distance;
+}
+
+.hidden {
+  display: none;
 }

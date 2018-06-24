@@ -14,6 +14,10 @@ import '../../../polyfills';
 import 'reflect-metadata';
 import 'zone.js/dist/zone-mix';
 import { MaterialModule } from '../material/material.module';
+import { ConfigService } from '../../providers/config.service';
+import { GroupsComponent } from '../../components/groups/groups.component';
+import { OverlookedComponent } from '../../components/overlooked/overlooked.component';
+
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -21,7 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, WebviewDirective],
+  declarations: [AppComponent, HomeComponent, GroupsComponent, OverlookedComponent,  WebviewDirective],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
@@ -37,7 +41,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     MaterialModule
   ],
-  providers: [ElectronService],
+  providers: [ElectronService, ConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

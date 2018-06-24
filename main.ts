@@ -1,6 +1,8 @@
 import * as path from 'path';
 import * as url from 'url';
 import { app, BrowserWindow, screen, Tray, Menu, ipcMain } from 'electron';
+import * as electronconfig from 'electron-config';
+import * as downloadsfolder from 'downloads-folder';
 
 
 let tray: Electron.Tray;
@@ -11,18 +13,23 @@ const serve: boolean = args.some(val => val === '--serve');
 const iconPath: string = path.join(__dirname, 'src/favicon.png');
 const showScriptWindow: boolean = args.some(val => val === '--scriptWin');
 
+const config = new electronconfig();
+
+if (!config.get('downloadsPath')) {
+  config.set('downloadsPath', path.normalize(downloadsfolder()));
+}
+
 function createWindow() {
   if (!guiWin) {
     const size = screen.getPrimaryDisplay().workAreaSize;
-    // Create the browser window.
     guiWin = new BrowserWindow({
       x: 0,
       y: 0,
       show: false,
       frame: false,
       icon: iconPath,
-      width: size.width / 3,
-      height: size.height / 3
+      width: size.width / 2.5,
+      height: size.height / 2.5
     });
     if (serve) {
       require('electron-reload')(__dirname, {
@@ -39,11 +46,7 @@ function createWindow() {
       );
     }
 
-    // Emitted when the window is closed.
     guiWin.on('closed', () => {
-      // Dereference the window object, usually you would store window
-      // in an array if your app supports multi windows, this is the time
-      // when you should delete the corresponding element.
       guiWin = null;
     });
 
@@ -90,26 +93,18 @@ function putInTray() {
 }
 
 try {
-  // This method will be called when Electron has finished
-  // initialization and is ready to create browser windows.
-  // Some APIs can only be used after this event occurs.
   app.on('ready', () => {
     putInTray();
     createScriptWindow();
   });
 
-  // Quit when all windows are closed.
   app.on('window-all-closed', () => {
-    // On OS X it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
       app.quit();
     }
   });
 
   app.on('activate', () => {
-    // On OS X it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
     if (guiWin === null) {
       createWindow();
     }
