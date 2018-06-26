@@ -10,19 +10,38 @@ import { ConfigService } from '../../providers/config.service';
 })
 export class HomeComponent implements OnInit {
 
+  public others: boolean;
   public sorting: boolean;
+  public downloadsDirectory: string;
+
+  private config;
 
   constructor(
     private electronService: ElectronService,
     private configService: ConfigService
-  ) { }
+  ) {
+    this.config = configService.config;
+  }
 
   ngOnInit() {
-    console.log(this.configService.config.path);
+    this.others = this.config.get('others');
+    this.sorting = this.config.get('enabled');
+    this.downloadsDirectory = this.config.get('downloadsPath');
+    this.electronService.ipcRenderer.on('directory-selected', (event, folder) => {
+      this.downloadsDirectory = folder;
+    });
   }
 
   enableChnage(event: MatSlideToggleChange) {
-    this.configService.config.set('enabled', event.checked);
+    console.log(event.checked);
+    this.config.set('enabled', event.checked);
   }
 
+  othersChange(event: MatSlideToggleChange) {
+    this.config.set('others', event.checked);
+  }
+
+  openFolderPicker() {
+    this.electronService.ipcRenderer.send('open-folder-dialog');
+  }
 }

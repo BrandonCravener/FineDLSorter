@@ -13,9 +13,18 @@
             Options
         </mat-card-title>
         <mat-card-content>
-            <mat-slide-toggle color="primary" [checked]="sorting" (change)="enableChnage(event)">
-                Sorting Enabled
+            <mat-slide-toggle class="full-width" color="primary" [checked]="sorting" (change)="enableChnage($event)">
+                Sorting
             </mat-slide-toggle>
+            <br>
+            <mat-slide-toggle class="full-width" color="primary" [checked]="others" (change)="othersChnage($event)">
+                Others Folder
+            </mat-slide-toggle>
+            <h3>Downloads Directory</h3>
+            <button mat-stroked-button class="full-width" (click)="openFolderPicker()">
+                <mat-icon>folder</mat-icon>
+            </button>
+            <span>{{downloadsDirectory}}</span>
         </mat-card-content>
         <mat-card-actions></mat-card-actions>
     </mat-card>

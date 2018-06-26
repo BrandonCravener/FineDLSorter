@@ -2,7 +2,7 @@
     <mat-toolbar color="primary" class="drag">
         <mat-toolbar-row>
             <div>
-                <button mat-icon-button class="no-drag" routerLink="" [class.hidden]="home">
+                <button mat-icon-button class="no-drag" routerLink="" [@backState]="home">
                     <mat-icon aria-label="Back button">arrow_back</mat-icon>
                 </button>
             </div>
@@ -14,10 +14,13 @@
             </div>
         </mat-toolbar-row>
     </mat-toolbar>
-    <div class="router-wrapper">
-        <router-outlet></router-outlet>
+    <div class="router-wrapper" [@routerTransition]="getComponent(outlet)">
+        <router-outlet #outlet="outlet"></router-outlet>
     </div>
     <button class="shutdown-button" matTooltip="Shutdown FineDLSorter" matTooltipPosition="left" mat-icon-button (click)="exit()">
         <mat-icon aria-label="Shutdown">power</mat-icon>
+    </button>
+    <button class="settings-button" matTooltip="Settings" matTooltipPosition="left" mat-icon-button routerLink="settings">
+        <mat-icon aria-label="Settings">settings</mat-icon>
     </button>
 </div>

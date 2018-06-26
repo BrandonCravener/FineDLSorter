@@ -2,15 +2,47 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AppConfig } from '../environments/environment';
 import { ElectronService } from './providers/electron.service';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+  stagger,
+  query
+} from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [
+    trigger('backState', [
+      state('true', style({ opacity: 0 })),
+      state('false', style({ opacity: 1 })),
+      transition('true => false', animate('200ms')),
+      transition('false => true', animate('200ms'))
+    ]),
+    trigger('routerTransition', [
+      transition('HomeComponent => *', [
+        query(
+          ':leave mat-card',
+          stagger(150, [
+            animate(150, style({ transform: 'translateY(-200%)' }))
+          ])
+        )
+      ]),
+      transition('* => HomeComponent', [
+        query(':enter mat-card', [
+          style({ transform: 'translateY(-200%)' }),
+          stagger(150, [animate(150, style({ transform: 'translateY(0)' }))])
+        ])
+      ])
+    ])
+  ]
 })
 export class AppComponent {
-
   public theme = 'amber-theme';
 
   public home = true;
@@ -20,7 +52,6 @@ export class AppComponent {
     private translate: TranslateService,
     private router: Router
   ) {
-
     translate.setDefaultLang('en');
     console.log('AppConfig', AppConfig);
 
@@ -33,7 +64,7 @@ export class AppComponent {
     }
 
     router.events.subscribe(event => {
-      this.home = (router.url === '/');
+      this.home = router.url === '/';
     });
   }
 
@@ -43,5 +74,13 @@ export class AppComponent {
 
   exit() {
     this.electronService.remote.app.quit();
+  }
+
+  getComponent(outlet: RouterOutlet) {
+    if (outlet.isActivated) {
+      return /^\s*function\s*([^\(]*)/i.exec(
+        String(outlet.activatedRoute.component)
+      )[1];
+    }
   }
 }

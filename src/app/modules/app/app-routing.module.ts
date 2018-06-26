@@ -3,6 +3,7 @@ import { GroupsComponent } from '../../components/groups/groups.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {OverlookedComponent} from '../../components/overlooked/overlooked.component';
+import { SettingsComponent } from '../../components/settings/settings.component';
 
 const routes: Routes = [
     {
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
         path: 'overlooked',
         component: OverlookedComponent
+    },
+    {
+        path: 'settings',
+        component: SettingsComponent
     }
 ];
 

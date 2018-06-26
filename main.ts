@@ -1,9 +1,17 @@
 import * as path from 'path';
 import * as url from 'url';
-import { app, BrowserWindow, screen, Tray, Menu, ipcMain } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  screen,
+  Tray,
+  Menu,
+  ipcMain,
+  dialog,
+  IpcMessageEvent
+} from 'electron';
 import * as electronconfig from 'electron-config';
 import * as downloadsfolder from 'downloads-folder';
-
 
 let tray: Electron.Tray;
 let guiWin: Electron.BrowserWindow;
@@ -28,8 +36,8 @@ function createWindow() {
       show: false,
       frame: false,
       icon: iconPath,
-      width: size.width / 2.5,
-      height: size.height / 2.5
+      width: size.width / 2,
+      height: size.height / 2
     });
     if (serve) {
       require('electron-reload')(__dirname, {
@@ -91,6 +99,21 @@ function putInTray() {
   );
   tray.on('click', createWindow);
 }
+
+ipcMain.on('open-folder-dialog', (event: IpcMessageEvent) => {
+  dialog.showOpenDialog(
+    {
+      properties: ['openDirectory']
+    },
+    folders => {
+      if (folders) {
+        const folder = path.normalize(folders[0]);
+        event.sender.send('directory-selected', folder);
+        config.set('downloadsPath', folder);
+      }
+    }
+  );
+});
 
 try {
   app.on('ready', () => {

@@ -17,6 +17,7 @@ import { MaterialModule } from '../material/material.module';
 import { ConfigService } from '../../providers/config.service';
 import { GroupsComponent } from '../../components/groups/groups.component';
 import { OverlookedComponent } from '../../components/overlooked/overlooked.component';
+import { SettingsComponent } from '../../components/settings/settings.component';
 
 
 // AoT requires an exported function for factories
@@ -25,7 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, GroupsComponent, OverlookedComponent,  WebviewDirective],
+  declarations: [AppComponent, HomeComponent, GroupsComponent, OverlookedComponent, SettingsComponent,  WebviewDirective],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,

@@ -7,7 +7,7 @@ mat-toolbar {
 }
 
 .router-wrapper {
-  margin-top: 55px;
+  margin-top: 70px;
 }
 
 mat-toolbar > mat-toolbar-row:first-child {
@@ -38,6 +38,12 @@ mat-toolbar > mat-toolbar-row:first-child {
 .shutdown-button {
   position: fixed;
   right: $mat-distance;
+  bottom: $mat-distance;
+}
+
+.settings-button {
+  position: fixed;
+  left: $mat-distance;
   bottom: $mat-distance;
 }
 
