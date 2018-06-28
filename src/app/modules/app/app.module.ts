@@ -1,3 +1,4 @@
+import { ObjectLengthPipe } from './../../pipes/objectlength.pipe';
 import { AppComponent } from '../../app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -26,7 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, GroupsComponent, OverlookedComponent, SettingsComponent,  WebviewDirective],
+  declarations: [AppComponent, HomeComponent, GroupsComponent, OverlookedComponent, SettingsComponent,  WebviewDirective, ObjectLengthPipe],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
@@ -42,7 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     MaterialModule
   ],
-  providers: [ElectronService, ConfigService],
+  providers: [ElectronService, ConfigService, ObjectLengthPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

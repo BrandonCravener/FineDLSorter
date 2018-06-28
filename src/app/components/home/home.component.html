@@ -3,7 +3,10 @@
         <mat-card-title>
             Groups
         </mat-card-title>
-        <mat-card-content></mat-card-content>
+        <mat-card-content>
+            <h3>Folders: {{ config.get('sortingConfig') | objectLength  }}</h3>
+            <h3>Covers _ extenstions</h3>
+        </mat-card-content>
         <mat-card-actions>
             <button mat-button routerLink="groups">Manage</button>
         </mat-card-actions>
@@ -17,22 +20,23 @@
                 Sorting
             </mat-slide-toggle>
             <br>
-            <mat-slide-toggle class="full-width" color="primary" [checked]="others" (change)="othersChnage($event)">
+            <mat-slide-toggle class="full-width" color="primary" [checked]="others" (change)="othersChange($event)">
                 Others Folder
             </mat-slide-toggle>
             <h3>Downloads Directory</h3>
-            <button mat-stroked-button class="full-width" (click)="openFolderPicker()">
+            <button mat-stroked-button class="full-width" (click)="openFolderPicker()" (mouseenter)="showDLDir = true;" (mouseleave)="showDLDir = false;">
                 <mat-icon>folder</mat-icon>
             </button>
-            <span>{{downloadsDirectory}}</span>
+            <span [@showDownloadsDir]="showDLDir">{{downloadsDirectory}}</span>
         </mat-card-content>
-        <mat-card-actions></mat-card-actions>
     </mat-card>
     <mat-card>
         <mat-card-title>
             Overlooked
         </mat-card-title>
-        <mat-card-content></mat-card-content>
+        <mat-card-content>
+            <h3>Classifications: {{ config.get('ignoredFiles').length }}</h3>
+        </mat-card-content>
         <mat-card-actions>
             <button mat-button routerLink="overlooked">Manage</button>
         </mat-card-actions>

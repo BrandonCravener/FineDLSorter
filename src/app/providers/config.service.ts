@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from './electron.service';
+import * as ElectronConfig from 'electron-config';
 const electronconfig = window.require('electron-config');
 
 @Injectable({
@@ -7,7 +8,7 @@ const electronconfig = window.require('electron-config');
 })
 export class ConfigService {
 
-  public config;
+  public config: ElectronConfig;
 
   constructor(private electronService: ElectronService) {
     this.config = new electronconfig();

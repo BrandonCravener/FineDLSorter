@@ -23,8 +23,21 @@ const showScriptWindow: boolean = args.some(val => val === '--scriptWin');
 
 const config = new electronconfig();
 
-if (!config.get('downloadsPath')) {
-  config.set('downloadsPath', path.normalize(downloadsfolder()));
+if (!config.has('created')) {
+  config.store = {
+    enabled: true,
+    others: false,
+    sortingDelay: 10000,
+    downloadsPath: path.normalize(downloadsfolder()),
+    theme: 'amber-theme',
+    sortingConfig: {},
+    ignoredFiles: [],
+    tutorial: {
+      enabled: true,
+      step: 0
+    },
+    retryTime: 60000
+  };
 }
 
 function createWindow() {
