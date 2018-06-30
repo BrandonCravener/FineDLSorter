@@ -28,15 +28,15 @@ import {
       transition('HomeComponent => *', [
         query(
           ':leave mat-card',
-          stagger(150, [
-            animate(175, style({ transform: 'translateY(-200%)' }))
+          stagger(175, [
+            animate(175, style({ transform: 'translateY(-200%)', opacity: 0 }))
           ])
         )
       ]),
       transition('* => HomeComponent', [
         query(':enter mat-card', [
-          style({ transform: 'translateY(-200%)' }),
-          stagger(150, [animate(150, style({ transform: 'translateY(0)' }))])
+          style({ transform: 'translateY(-100%)', opacity: 0 }),
+          stagger(150, [animate(150, style({ transform: 'translateY(0)', opacity: 1 }))])
         ])
       ])
     ])

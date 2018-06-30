@@ -7,25 +7,13 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  animations: [
-    trigger('showDownloadsDir', [
-      state('true', style({
-        opacity: 1
-      })),
-      state('false', style({
-        opacity: 0
-      })),
-      transition('* <=> *', animate(200))
-    ])
-  ]
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
   public config;
   public others: boolean;
   public sorting: boolean;
-  public showDLDir = false;
   public downloadsDirectory: string;
 
 
