@@ -36,7 +36,8 @@ if (!config.has('created')) {
       enabled: true,
       step: 0
     },
-    retryTime: 60000
+    retryTime: 60000,
+    created: true
   };
 }
 
