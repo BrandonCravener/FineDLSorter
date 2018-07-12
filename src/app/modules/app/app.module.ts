@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { ElectronService } from '../../providers/electron.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from '../../components/home/home.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -19,12 +19,16 @@ import { ConfigService } from '../../providers/config.service';
 import { GroupsComponent } from '../../components/groups/groups.component';
 import { OverlookedComponent } from '../../components/overlooked/overlooked.component';
 import { SettingsComponent } from '../../components/settings/settings.component';
-
+import { AngularOnboardingModule, Config } from 'angular-onboarding';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const angularOnboardingConfig: Config = {
+  steps: []
+};
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, GroupsComponent, OverlookedComponent, SettingsComponent,  WebviewDirective, ObjectLengthPipe],
@@ -41,7 +45,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    MaterialModule
+    MaterialModule,
+    AngularOnboardingModule.forRoot(angularOnboardingConfig),
+    ReactiveFormsModule
   ],
   providers: [ElectronService, ConfigService, ObjectLengthPipe],
   bootstrap: [AppComponent]

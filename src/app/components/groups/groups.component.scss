@@ -1,3 +1,19 @@
-table, mat-form-field {
+.fill {
+  width: -webkit-fill-available;
+}
+
+.new-group {
+  mat-form-field {
+    width: 40%;
+  }
+  :not(:nth-child(1)) {
+    margin-left: 8px;
+  }
+  button {
+    width: 16%;
+  }
+}
+
+table {
     width: -webkit-fill-available;
 }

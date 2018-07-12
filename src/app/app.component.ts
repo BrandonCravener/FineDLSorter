@@ -12,6 +12,7 @@ import {
   stagger,
   query
 } from '@angular/animations';
+import { AngularOnboardingService } from 'angular-onboarding';
 
 @Component({
   selector: 'app-root',
@@ -43,11 +44,11 @@ import {
   ]
 })
 export class AppComponent {
+  public home = true;
   public theme = 'amber-theme';
 
-  public home = true;
-
   constructor(
+    private aoService: AngularOnboardingService,
     public electronService: ElectronService,
     private translate: TranslateService,
     private router: Router
@@ -62,6 +63,10 @@ export class AppComponent {
     } else {
       console.log('Mode web');
     }
+
+    this.aoService.navigateSubject.subscribe(path => {
+      this.router.navigateByUrl(path);
+    });
 
     router.events.subscribe(event => {
       this.home = router.url === '/';

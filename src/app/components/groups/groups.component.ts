@@ -1,18 +1,13 @@
 import { TableGroup } from './../../../../interfaces';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataSource } from '@angular/cdk/table';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { CollectionViewer } from '@angular/cdk/collections';
-import * as ElectronConfig from 'electron-config';
 import { ConfigService } from '../../providers/config.service';
 import {
-  MatPaginator,
-  PageEvent,
   MatSort,
-  MatTableDataSource,
+  MatPaginator,
   MatChipInputEvent,
-  MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS
+  MatTableDataSource
 } from '@angular/material';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-groups',
@@ -24,10 +19,17 @@ export class GroupsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private tableGroups: TableGroup[] = [];
+
+  public newGroupForm: FormGroup;
   public dataSource: MatTableDataSource<TableGroup>;
   public displayedColumns = ['folder', 'extensions'];
 
-  constructor(private configService: ConfigService) {}
+  constructor(private configService: ConfigService, private formbuilder: FormBuilder) {
+    this.newGroupForm = formbuilder.group({
+      name: ['', Validators.required],
+      extension: ['', Validators.required]
+    });
+  }
 
   private calculateStart(page: number, pageSize: number): number {
     return page ? page * pageSize : 0;
@@ -77,6 +79,22 @@ export class GroupsComponent implements OnInit {
       event.input.value = '';
     }
     this.saveConfig();
+  }
+
+  addGroup() {
+    if (this.newGroupForm.valid) {
+      let value = this.newGroupForm.get('extension').value;
+      if (!value.startsWith('.', 0)) {
+        value = `.${value}`;
+      }
+      this.tableGroups.push({
+        name: this.newGroupForm.get('name').value,
+        extensions: [value]
+      });
+    }
+    this.newGroupForm.reset();
+    this.saveConfig();
+    this.dataSource.data = this.tableGroups;
   }
 
   removeExtension(folder: string, extension: string) {
