@@ -24,7 +24,10 @@ export class GroupsComponent implements OnInit {
   public dataSource: MatTableDataSource<TableGroup>;
   public displayedColumns = ['folder', 'extensions'];
 
-  constructor(private configService: ConfigService, private formbuilder: FormBuilder) {
+  constructor(
+    private configService: ConfigService,
+    private formbuilder: FormBuilder
+  ) {
     this.newGroupForm = formbuilder.group({
       name: ['', Validators.required],
       extension: ['', Validators.required]
