@@ -1,3 +1,14 @@
-<p>
-  settings works!
-</p>
+<mat-form-field>
+  <input matInput placeholder="'Other' Folder name" [value]="otherName" (change)="otherChange($event.target.value)">
+</mat-form-field>
+<br>
+<mat-form-field>
+  <mat-select [value]="theme" (selectionChange)="themeChange($event)">
+    <mat-option value="amber-theme">Amber</mat-option>
+  </mat-select>
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput type="number" placeholder="Sorting Delay" [value]="delay" (change)="delayChange($event.target.value)">
+  <span matSuffix>S</span>
+</mat-form-field>

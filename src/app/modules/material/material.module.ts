@@ -12,7 +12,8 @@ import {
   MatTableModule,
   MatSortModule,
   MatInputModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSelectModule
 } from '@angular/material';
 
 const modules = [
@@ -23,6 +24,7 @@ const modules = [
   MatTableModule,
   MatInputModule,
   MatButtonModule,
+  MatSelectModule,
   MatTooltipModule,
   MatToolbarModule,
   MatFormFieldModule,

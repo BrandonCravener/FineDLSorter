@@ -73,4 +73,13 @@ export class OverlookedComponent implements OnInit {
     this.saveConfig();
     this.dataSource.data = this.tableClassifications;
   }
+
+  removeRow(row) {
+    const rowIndex = this.tableClassifications.findIndex(value => {
+      return JSON.stringify(value) === JSON.stringify(row);
+    });
+    this.tableClassifications.splice(rowIndex, 1);
+    this.saveConfig();
+    this.dataSource.data = this.tableClassifications;
+  }
 }

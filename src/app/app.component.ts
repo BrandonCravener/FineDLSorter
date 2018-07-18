@@ -40,6 +40,16 @@ import { AngularOnboardingService } from 'angular-onboarding';
           stagger(150, [animate(150, style({ transform: 'translateY(0)', opacity: 1 }))])
         ])
       ])
+    ]),
+    trigger('settingsFAB', [
+      state('true', style({
+        transform: 'scale(1) rotate(-0.5turn)'
+      })),
+      state('false', style({
+        transform: 'scale(0) rotate(0.5turn)'
+      })),
+      transition('true => false', animate(200)),
+      transition('false => true', animate(200))
     ])
   ]
 })

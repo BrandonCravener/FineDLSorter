@@ -28,6 +28,7 @@ if (!config.has('created')) {
     enabled: true,
     others: false,
     sortingDelay: 10000,
+    othersName: 'Misc',
     downloadsPath: path.normalize(downloadsfolder()),
     theme: 'amber-theme',
     sortingConfig: {},

@@ -16,4 +16,8 @@
 
 table {
     width: -webkit-fill-available;
+    .mat-row:hover {
+      cursor: pointer;
+      background-color: rgba(255, 20, 20, 0.65);
+    }
 }
