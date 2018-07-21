@@ -31,8 +31,18 @@ if (!config.has('created')) {
     othersName: 'Misc',
     downloadsPath: path.normalize(downloadsfolder()),
     theme: 'amber-theme',
-    sortingConfig: {},
-    ignoredFiles: [],
+    sortingConfig: {
+      Archives: ['.zip', '.rar', '.7z', '.tar', '.iso', '.bz2', '.gz', '.dmg'],
+      Audio: ['.mp3', '.wav', '.3gp', '.m4a', '.ogg'],
+      Executables: ['.exe', '.app'],
+      'Installer Packages': ['.msi'],
+      Pictures: ['.png', '.png', '.svg'],
+      Videos: ['.mp4', '.flv']
+    },
+    ignoredFiles: {
+      'Temp Files': '*.tmp',
+      'In-Progress Downloads': '*.*download'
+    },
     tutorial: {
       enabled: true,
       step: 0

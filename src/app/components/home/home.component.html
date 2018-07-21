@@ -34,7 +34,7 @@
       Overlooked
     </mat-card-title>
     <mat-card-content>
-      <h3>Has {{ config.get('ignoredFiles').length }} classifications</h3>
+      <h3>Has {{ config.get('ignoredFiles') | objectLength }} classifications</h3>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button routerLink="overlooked">Manage</button>

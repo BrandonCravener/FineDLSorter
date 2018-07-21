@@ -12,3 +12,7 @@
   <input matInput type="number" placeholder="Sorting Delay" [value]="delay" (change)="delayChange($event.target.value)">
   <span matSuffix>S</span>
 </mat-form-field>
+<br>
+<mat-slide-toggle [checked]="autoStart" (change)="startChange($event)">
+  Start with Windows
+</mat-slide-toggle>
