@@ -50,7 +50,6 @@ export default class Watcher {
   }
 
   enableWatching() {
-    const directory = config.get('downloadsPath');
     Location.createFolders();
     if (this.watcher == null) {
       this.createWatcher();

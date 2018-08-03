@@ -104,6 +104,26 @@ function createScriptWindow() {
   }
 }
 
+function updateEnable(arg) {
+  config.set('enabled', arg);
+  if (scriptWin) {
+    scriptWin.webContents.send('enable', arg);
+  }
+  if (guiWin) {
+    guiWin.webContents.send('enable', arg);
+  }
+}
+
+function updateOther(arg) {
+  config.set('others', arg);
+  if (scriptWin) {
+    scriptWin.webContents.send('other', arg);
+  }
+  if (guiWin) {
+    guiWin.webContents.send('other', arg);
+  }
+}
+
 /**
  * Put the app icon in the tray
  */
@@ -115,6 +135,22 @@ function putInTray() {
       {
         label: 'Open',
         click: createWindow
+      },
+      {
+        label: 'Enabled',
+        type: 'checkbox',
+        checked: config.get('enabled'),
+        click: event => {
+          updateEnable(event.checked);
+        }
+      },
+      {
+        label: 'Others',
+        type: 'checkbox',
+        checked: config.get('others'),
+        click: event => {
+          updateOther(event.checked);
+        }
       },
       {
         label: 'Exit',
@@ -138,6 +174,14 @@ ipcMain.on('open-folder-dialog', (event: IpcMessageEvent) => {
       }
     }
   );
+});
+
+ipcMain.on('enable', (event: IpcMessageEvent, arg) => {
+  updateEnable(arg);
+});
+
+ipcMain.on('other', (event: IpcMessageEvent, arg) => {
+  updateOther(arg);
 });
 
 try {

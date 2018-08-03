@@ -1,7 +1,7 @@
 import * as ElectronConfig from 'electron-config';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ElectronService } from '../../providers/electron.service';
-import { MatSlideToggleChange } from '@angular/material';
+import { MatSlideToggleChange, MatSlideToggle } from '@angular/material';
 import { ConfigService } from '../../providers/config.service';
 import {
   trigger,
@@ -10,6 +10,7 @@ import {
   transition,
   animate
 } from '@angular/animations';
+import { IpcMessageEvent } from 'electron';
 
 @Component({
   selector: 'app-home',
@@ -22,9 +23,13 @@ export class HomeComponent implements OnInit {
   public config: ElectronConfig;
   public downloadsDirectory: string;
 
+  @ViewChild('otherToggle') otherToggle: MatSlideToggle;
+  @ViewChild('sortingToggle') sortingToggle: MatSlideToggle;
+
   constructor(
+    private changeDetector: ChangeDetectorRef,
     private electronService: ElectronService,
-    private configService: ConfigService
+    private configService: ConfigService,
   ) {
     this.config = configService.config;
   }
@@ -39,15 +44,32 @@ export class HomeComponent implements OnInit {
         this.downloadsDirectory = folder;
       }
     );
+    this.electronService.ipcRenderer.on(
+      'enable',
+      (event: IpcMessageEvent, enabled) => {
+        if (this.sortingToggle.checked !== enabled) {
+          this.sortingToggle.toggle();
+        }
+        this.changeDetector.detectChanges();
+      }
+    );
+    this.electronService.ipcRenderer.on(
+      'other',
+      (event: IpcMessageEvent, enabled) => {
+        if (this.otherToggle.checked !== enabled) {
+          this.otherToggle.toggle();
+        }
+        this.changeDetector.detectChanges();
+      }
+    );
   }
 
-  enableChnage(event: MatSlideToggleChange) {
-    console.log(event.checked);
-    this.config.set('enabled', event.checked);
+  enableChange(event: MatSlideToggleChange) {
+    this.electronService.ipcRenderer.send('enable', event.checked);
   }
 
   othersChange(event: MatSlideToggleChange) {
-    this.config.set('others', event.checked);
+    this.electronService.ipcRenderer.send('other', event.checked);
   }
 
   openFolderPicker() {

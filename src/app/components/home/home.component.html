@@ -16,11 +16,11 @@
       Options
     </mat-card-title>
     <mat-card-content>
-      <mat-slide-toggle class="full-width" color="primary" [checked]="sorting" (change)="enableChnage($event)">
+      <mat-slide-toggle #sortingToggle class="full-width" color="primary" [checked]="sorting" (change)="enableChange($event)">
         Sorting
       </mat-slide-toggle>
       <br>
-      <mat-slide-toggle class="full-width" color="primary" [checked]="others" (change)="othersChange($event)">
+      <mat-slide-toggle #otherToggle class="full-width" color="primary" [checked]="others" (change)="othersChange($event)">
         Others Folder
       </mat-slide-toggle>
       <h3>Downloads Directory</h3>

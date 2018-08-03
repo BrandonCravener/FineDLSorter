@@ -1,5 +1,6 @@
 import Location from './location';
 import { rename } from 'fs';
+import { Promise } from 'es6-promise';
 
 export default class Sorter {
   static sort(path: string) {

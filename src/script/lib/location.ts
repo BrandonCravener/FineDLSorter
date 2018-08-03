@@ -1,4 +1,5 @@
 import { homedir } from 'os';
+import { Promise } from 'es6-promise';
 import { access, mkdir, mkdirSync } from 'fs';
 import { extname, dirname, basename } from 'path';
 import * as electronconifg from 'electron-config';

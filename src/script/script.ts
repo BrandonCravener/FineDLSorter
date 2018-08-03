@@ -1,2 +1,12 @@
-import * as glob from 'glob';
-import * as chokidar from 'chokidar';
+import { ipcRenderer, IpcMessageEvent } from 'electron';
+import Watcher from './lib/watcher';
+
+const watcher = new Watcher();
+
+ipcRenderer.on('enable', (event: IpcMessageEvent, enabled) => {
+  if (enabled) {
+    watcher.enableWatching();
+  } else {
+    watcher.disableWatching();
+  }
+});
