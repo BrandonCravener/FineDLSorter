@@ -1,7 +1,7 @@
 {
-  "productName": "FineDLSorter",
+  "productName": "angular-electron",
   "directories": {
-    "output": "build"
+    "output": "release/"
   },
     "files": [
         "**/*",

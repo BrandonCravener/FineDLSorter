@@ -6,6 +6,7 @@ export default class Sorter {
   static sort(path: string) {
     return new Promise((resolve, reject) => {
       const newLocation = Location.getNewLocation(path);
+      console.log(newLocation);
       if (newLocation !== path) {
         rename(path, newLocation, err => {
           if (err) {

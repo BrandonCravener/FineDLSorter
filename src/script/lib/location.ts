@@ -2,9 +2,9 @@ import { homedir } from 'os';
 import { Promise } from 'es6-promise';
 import { access, mkdir, mkdirSync } from 'fs';
 import { extname, dirname, basename } from 'path';
-import * as electronconifg from 'electron-config';
+import * as electronconfig from 'electron-config';
 
-const config = new electronconifg();
+const config = new electronconfig();
 
 export default class Location {
   static getNewLocation(path: string) {

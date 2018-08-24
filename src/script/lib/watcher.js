@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var electronconifg = require("electron-config");
 var chokidar = require("chokidar");
 var location_1 = require("./location");
@@ -20,10 +20,11 @@ var Watcher = /** @class */ (function () {
             });
             this.watcher.on('add', function (path) {
                 setTimeout(function () {
-                    sorter_1["default"].sort(path)
+                    sorter_1.default.sort(path)
                         .then(function () {
                         console.log("File: " + path + " sorter");
-                    })["catch"](function (err) { return console.error; });
+                    })
+                        .catch(function (err) { return console.error; });
                 }, config.get('sortingDelay'));
             });
         }
@@ -43,7 +44,7 @@ var Watcher = /** @class */ (function () {
         this.watcher.add(rule);
     };
     Watcher.prototype.enableWatching = function () {
-        location_1["default"].createFolders();
+        location_1.default.createFolders();
         if (this.watcher == null) {
             this.createWatcher();
         }
@@ -54,4 +55,5 @@ var Watcher = /** @class */ (function () {
     };
     return Watcher;
 }());
-exports["default"] = Watcher;
+exports.default = Watcher;
+//# sourceMappingURL=watcher.js.map

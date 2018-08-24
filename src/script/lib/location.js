@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var os_1 = require("os");
 var es6_promise_1 = require("es6-promise");
 var fs_1 = require("fs");
@@ -67,4 +67,5 @@ var Location = /** @class */ (function () {
     };
     return Location;
 }());
-exports["default"] = Location;
+exports.default = Location;
+//# sourceMappingURL=location.js.map

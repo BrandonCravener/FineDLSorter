@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var location_1 = require("./location");
 var fs_1 = require("fs");
 var es6_promise_1 = require("es6-promise");
@@ -8,7 +8,8 @@ var Sorter = /** @class */ (function () {
     }
     Sorter.sort = function (path) {
         return new es6_promise_1.Promise(function (resolve, reject) {
-            var newLocation = location_1["default"].getNewLocation(path);
+            var newLocation = location_1.default.getNewLocation(path);
+            console.log(newLocation);
             if (newLocation !== path) {
                 fs_1.rename(path, newLocation, function (err) {
                     if (err) {
@@ -23,4 +24,5 @@ var Sorter = /** @class */ (function () {
     };
     return Sorter;
 }());
-exports["default"] = Sorter;
+exports.default = Sorter;
+//# sourceMappingURL=sorter.js.map
