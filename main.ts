@@ -184,6 +184,12 @@ ipcMain.on('other', (event: IpcMessageEvent, arg) => {
   updateOther(arg);
 });
 
+ipcMain.on('otherName', (event: IpcMessageEvent, arg) => {
+  if (scriptWin) {
+    scriptWin.webContents.send('otherName', arg);
+  }
+});
+
 try {
   app.on('ready', () => {
     putInTray();

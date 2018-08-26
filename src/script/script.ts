@@ -1,4 +1,5 @@
 import Watcher from './lib/watcher';
+import Location from './lib/location';
 import { ipcRenderer, IpcMessageEvent } from 'electron';
 import * as electronconfig from 'electron-config';
 
@@ -14,6 +15,11 @@ function handleEnable(enabled) {
 }
 
 handleEnable(config.get('enabled'));
+
 ipcRenderer.on('enable', (event: IpcMessageEvent, enabled) => {
   handleEnable(enabled);
+});
+
+ipcRenderer.on('otherName', (event: IpcMessageEvent, name) => {
+  Location.renameMisc(name);
 });

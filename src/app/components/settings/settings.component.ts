@@ -48,6 +48,6 @@ export class SettingsComponent {
 
   otherChange(newName: string) {
     this.otherName = newName;
-    this.configService.config.set('othersName', this.otherName);
+    this.electronService.ipcRenderer.send('otherName', newName);
   }
 }

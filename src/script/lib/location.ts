@@ -1,7 +1,8 @@
 import { homedir } from 'os';
 import { Promise } from 'es6-promise';
-import { access, mkdir, mkdirSync } from 'fs';
-import { extname, dirname, basename } from 'path';
+import { access, mkdir, mkdirSync, rename } from 'fs';
+import { extname, dirname, basename, join } from 'path';
+import { dialog } from 'electron';
 import * as electronconfig from 'electron-config';
 
 const config = new electronconfig();
@@ -29,8 +30,9 @@ export default class Location {
 
   static createFolders(disableSafeCheck = false) {
     return new Promise((resolve, reject) => {
-      const sortDir = config.get('downloadsPath');
+      const otherEnabled = config.get('others');
       const otherName = config.get('othersName');
+      const sortDir = config.get('downloadsPath');
       const sortingConfig = config.get('sortingConfig');
       if (sortDir.indexOf(homedir()) === -1 && !disableSafeCheck) {
         reject(Error('Location has to be in users base directory!'));
@@ -49,12 +51,31 @@ export default class Location {
             });
           }
         }
-        access(`${sortDir}/${otherName}`, err => {
-          if (err) {
-            mkdirSync(`${sortDir}/${otherName}`);
-          }
-        });
+        if (otherEnabled) {
+          access(`${sortDir}/${otherName}`, err => {
+            if (err) {
+              mkdirSync(`${sortDir}/${otherName}`);
+            }
+          });
+        }
         resolve();
+      }
+    });
+  }
+
+  static renameMisc(newName) {
+    const oldName = config.get('othersName');
+    const directory = config.get('downloadsPath');
+    const oldFolder = join(directory, oldName);
+    const newFolder = join(directory, newName);
+    rename(oldFolder, newFolder, err => {
+      if (err) {
+        dialog.showErrorBox(
+          'Rename Other',
+          'I was unable to rename the Other folder, please make sure everything in that folder is closed!'
+        );
+      } else {
+        config.set('othersName', newName);
       }
     });
   }

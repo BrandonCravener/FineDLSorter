@@ -4,8 +4,9 @@ var os_1 = require("os");
 var es6_promise_1 = require("es6-promise");
 var fs_1 = require("fs");
 var path_1 = require("path");
-var electronconifg = require("electron-config");
-var config = new electronconifg();
+var electron_1 = require("electron");
+var electronconfig = require("electron-config");
+var config = new electronconfig();
 var Location = /** @class */ (function () {
     function Location() {
     }
@@ -32,8 +33,9 @@ var Location = /** @class */ (function () {
     Location.createFolders = function (disableSafeCheck) {
         if (disableSafeCheck === void 0) { disableSafeCheck = false; }
         return new es6_promise_1.Promise(function (resolve, reject) {
-            var sortDir = config.get('downloadsPath');
+            var otherEnabled = config.get('others');
             var otherName = config.get('othersName');
+            var sortDir = config.get('downloadsPath');
             var sortingConfig = config.get('sortingConfig');
             if (sortDir.indexOf(os_1.homedir()) === -1 && !disableSafeCheck) {
                 reject(Error('Location has to be in users base directory!'));
@@ -56,12 +58,28 @@ var Location = /** @class */ (function () {
                 for (var i = 0; i < Object.keys(sortingConfig).length; i += 1) {
                     _loop_1(i);
                 }
-                fs_1.access(sortDir + "/" + otherName, function (err) {
-                    if (err) {
-                        fs_1.mkdirSync(sortDir + "/" + otherName);
-                    }
-                });
+                if (otherEnabled) {
+                    fs_1.access(sortDir + "/" + otherName, function (err) {
+                        if (err) {
+                            fs_1.mkdirSync(sortDir + "/" + otherName);
+                        }
+                    });
+                }
                 resolve();
+            }
+        });
+    };
+    Location.renameMisc = function (newName) {
+        var oldName = config.get('othersName');
+        var directory = config.get('downloadsPath');
+        var oldFolder = path_1.join(directory, oldName);
+        var newFolder = path_1.join(directory, newName);
+        fs_1.rename(oldFolder, newFolder, function (err) {
+            if (err) {
+                electron_1.dialog.showErrorBox('Rename Other', 'I was unable to rename the Other folder, please make sure everything in that folder is closed!');
+            }
+            else {
+                config.set('othersName', newName);
             }
         });
     };
